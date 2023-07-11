@@ -1,0 +1,33 @@
+.slider-container {
+  background-color: #ffffff;
+  padding: 30px;
+  margin-left: 50px;
+  margin-right: 50px;
+}
+.unordered-list {
+  list-style-type: none;
+  display: flex;
+  flex-direction: row;
+}
+.img-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.img {
+  height: 50px;
+  width: 50px;
+  border-radius: 80px;
+}
+.text-center {
+  text-align: center;
+}
+/* .slick-prev {
+  left: -25px;
+  color: #e5e5e5 !important;
+} */
+.slick-prev:before,
+.slick-next:before {
+  color: #e5e5e5;
+}

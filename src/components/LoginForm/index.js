@@ -27,11 +27,10 @@ class LoginForm extends Component {
       const data = await response.json()
       this.submitSuccess(data.jwt_token)
       //  console.log(data.jwt_token)
+    } else {
+      const data = await response.json()
+      this.setState({showError: true, error: data.error_msg})
     }
-    const data = await response.json()
-    this.setState({showError: true, error: data.error_msg})
-    // console.log(data.error_msg)
-    //  return <Redirect to="/login" />
   }
 
   onUsernameChange = event => {
@@ -55,12 +54,12 @@ class LoginForm extends Component {
           <img
             className="landing-img"
             src="https://res.cloudinary.com/dhcf8dqbi/image/upload/v1688893819/Layer_2_wsq0fe.png"
-            alt="login-pic"
+            alt="website logo"
           />
           <form onSubmit={this.onSubmitForm} className="form">
             <img
               src="https://res.cloudinary.com/dhcf8dqbi/image/upload/v1688895890/Standard_Collection_8_1_ffqfg8.png"
-              alt="insta-logo"
+              alt="website login"
             />
             <h3 className="logo-heading">Insta Share</h3>
             <div className="username-label">
