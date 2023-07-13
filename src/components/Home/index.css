@@ -1,3 +1,6 @@
+.bg {
+  height: 100vh;
+}
 .unordered-list-post {
   list-style-type: none;
   background-color: #ffffff;
@@ -6,56 +9,32 @@
   padding: 0px;
   border: solid 1px #dbdbdb;
 }
-.post-header {
-  border-style: solid;
-  border-color: #dbdbdb;
-  border-width: 1px;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  /* padding: 0px;
-  margin: 0px; */
-}
-.header-img {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-left: 10px;
-  margin-right: 10px;
-}
-.unordered-list-icons {
-  list-style-type: none;
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  /* margin: 0px; */
-  padding: 0px;
-  margin-top: 5px;
-}
-.icons-list-item {
-  margin-right: 10px;
-}
-.like-button {
-  border-style: none;
-  background-color: transparent;
-  cursor: pointer;
-}
-.unordered-list-comments {
-  list-style-type: none;
-  padding: 0px;
-}
-.comment-username {
-  font-weight: 500;
-}
-.created-time {
-  color: #989898;
-}
+
 .bg-posts {
   background-color: #fafafa;
 }
-.post-bottom-section {
-  padding-left: 20px;
+.failure-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+.loader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+.retry-button {
+  color: #ffffff;
+  background-color: #4094ef;
+  border-style: none;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 7px;
 }

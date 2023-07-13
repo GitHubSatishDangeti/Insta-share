@@ -1,0 +1,25 @@
+.failure-view {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}
+.retry-button {
+  color: #ffffff;
+  background-color: #4094ef;
+  border-style: none;
+  padding: 5px;
+  padding-left: 10px;
+  padding-right: 10px;
+  border-radius: 7px;
+}
+.loader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin-top: 7%;
+  margin-bottom: 7%;
+}

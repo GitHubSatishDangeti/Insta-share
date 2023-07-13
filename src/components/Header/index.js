@@ -30,7 +30,9 @@ const Header = props => {
         <Link to="/">
           <li className="nav-list">Home</li>
         </Link>
-        <li className="nav-list">Profile</li>
+        <Link to="/my-profile">
+          <li className="nav-list">Profile</li>
+        </Link>
         <li className="nav-list">
           <button onClick={onLogout} type="button">
             Logout

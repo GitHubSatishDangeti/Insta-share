@@ -1,20 +1,19 @@
 import {Component} from 'react'
+import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
-import {BsHeart} from 'react-icons/bs'
-import {FcLike} from 'react-icons/fc'
-import {FaRegComment} from 'react-icons/fa'
-import {BiShareAlt} from 'react-icons/bi'
 import './index.css'
 import Header from '../Header'
 import ReactSlider from '../ReactSlider'
+import UserPosts from '../UserPosts'
 
-const apiStoriesStatus = {
+const apiPostsStatus = {
   initial: 'INITIAL',
   loading: 'LOADING',
   success: 'SUCCESS',
   failure: 'FAILURE',
 }
-const apiPostsStatus = {
+
+const apiStoriesStatus = {
   initial: 'INITIAL',
   loading: 'LOADING',
   success: 'SUCCESS',
@@ -61,6 +60,8 @@ class Home extends Component {
         storyStatus: apiStoriesStatus.success,
         userStories: formattedData,
       })
+    } else {
+      this.setState({storyStatus: apiStoriesStatus.failure})
     }
   }
 
@@ -99,100 +100,110 @@ class Home extends Component {
         postStatus: apiPostsStatus.success,
         posts: formattedPostsData,
       })
-      console.log(formattedPostsData)
+      // console.log(formattedPostsData)
     } else {
       this.setState({postStatus: apiPostsStatus.failure})
     }
   }
 
-  onClickLike = event => {
-    this.setState({isLiked: true})
+  onPostsRetry = () => {
+    this.getPosts()
   }
 
-  onClickDisLike = id => {
-    this.setState({isLiked: false})
+  onStoryRetry = () => {
+    this.getUserStories()
   }
 
   renderPostsView = () => {
-    const {posts, isLiked} = this.state
+    const {posts} = this.state
 
     return (
       <div className="bg-posts">
         <ul className="unordered-list-post">
           {posts.map(i => (
-            <li key={i.postId}>
-              <div className="post-header">
-                <img
-                  className="header-img"
-                  src={i.profilePic}
-                  alt="post author profile"
-                />
-                <h6>{i.userName}</h6>
-              </div>
-              <img src={i.imageUrl} alt="post" width="100%" height="500px" />
-              <div className="post-bottom-section">
-                <ul className="unordered-list-icons">
-                  <li className="icons-list-item">
-                    {!isLiked ? (
-                      <button
-                        id={i.postId}
-                        onClick={this.onClickLike}
-                        className="like-button"
-                        type="button"
-                        data-testid="likeIcon"
-                      >
-                        <BsHeart size="15px" />
-                      </button>
-                    ) : (
-                      <button
-                        id={i.postId}
-                        className="like-button"
-                        onClick={this.onClickDisLike}
-                        type="button"
-                        data-testid="unLikeIcon"
-                      >
-                        <FcLike />
-                      </button>
-                    )}
-                  </li>
-                  <li className="icons-list-item">
-                    <FaRegComment />
-                  </li>
-                  <li className="icons-list-item">
-                    <BiShareAlt />
-                  </li>
-                </ul>
-                <p>{i.likesCount} likes</p>
-                <p>{i.caption}</p>
-                <ul className="unordered-list-comments">
-                  {i.comments.map(k => (
-                    <li key={k.commentUserId}>
-                      <p>
-                        <span className="comment-username">
-                          {k.commentUsername}
-                        </span>{' '}
-                        {k.comment}
-                      </p>
-                    </li>
-                  ))}
-                </ul>
-                <p className="created-time">{i.createdAt}</p>
-              </div>
-            </li>
+            <UserPosts key={i.postId} postDetails={i} />
           ))}
         </ul>
       </div>
     )
   }
 
-  render() {
-    const {userStories} = this.state
+  renderPostsFailureView = () => (
+    <div className="failure-view">
+      <img
+        src="https://res.cloudinary.com/dhcf8dqbi/image/upload/v1689236171/Icon_dskbst.png"
+        alt="failure view"
+      />
+      <p>Something went wrong. Please try again</p>
+      <button
+        className="retry-button"
+        onClick={this.onPostsRetry}
+        type="button"
+      >
+        Try agian
+      </button>
+    </div>
+  )
 
+  renderStoryFailureView = () => (
+    <div className="failure-view">
+      <img
+        src="https://res.cloudinary.com/dhcf8dqbi/image/upload/v1689236171/Icon_dskbst.png"
+        alt="failure view"
+      />
+      <p>Something went wrong. Please try again</p>
+      <button
+        className="retry-button"
+        onClick={this.onStoryRetry}
+        type="button"
+      >
+        Try agian
+      </button>
+    </div>
+  )
+
+  renderLoadingView = () => (
+    <div className="loader-container loader" data-testid="loader">
+      <Loader type="TailSpin" color="#4094EF" height={50} width={50} />
+    </div>
+  )
+
+  renderPost = () => {
+    const {postStatus} = this.state
+    switch (postStatus) {
+      case apiPostsStatus.success:
+        return this.renderPostsView()
+      case apiPostsStatus.failure:
+        return this.renderPostsFailureView()
+      case apiPostsStatus.loading:
+        return this.renderLoadingView()
+
+      default:
+        return null
+    }
+  }
+
+  renderStories = () => {
+    const {storyStatus, userStories} = this.state
+    switch (storyStatus) {
+      case apiStoriesStatus.success:
+        return <ReactSlider userStories={userStories} />
+      case apiStoriesStatus.failure:
+        return this.renderStoryFailureView()
+      case apiStoriesStatus.loading:
+        return this.renderLoadingView()
+
+      default:
+        return null
+    }
+  }
+
+  render() {
     return (
-      <div>
+      <div className="bg">
         <Header />
-        <ReactSlider userStories={userStories} />
-        {this.renderPostsView()}
+        {this.renderStories()}
+        {this.renderPost()}
       </div>
     )
   }
