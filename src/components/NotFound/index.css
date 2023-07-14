@@ -1,0 +1,22 @@
+.not-found-bg {
+  padding: 50px;
+  background-color: #fafafa;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.not-found-para {
+  color: #989898;
+}
+.home-page-button {
+  background-color: #4094ef;
+  color: white;
+  border-style: none;
+  border-radius: 5px;
+  padding-left: 15px;
+  padding-right: 15px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}

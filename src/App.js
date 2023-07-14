@@ -3,7 +3,8 @@ import './App.css'
 import LoginForm from './components/LoginForm'
 import ProtectedRoute from './components/protectedRoute'
 import MyProfile from './components/MyProfile'
-
+import UserProfile from './components/UserProfile'
+import NotFound from './components/NotFound'
 import Home from './components/Home'
 
 const App = () => (
@@ -12,6 +13,9 @@ const App = () => (
       <Route exact path="/login" component={LoginForm} />
       <ProtectedRoute exact path="/" component={Home} />
       <ProtectedRoute exact path="/my-profile/" component={MyProfile} />
+      <ProtectedRoute exact path="/users/:id" component={UserProfile} />
+      <Route exact path="/not-found" component={NotFound} />
+      <Redirect to="/not-found" />
     </Switch>
   </>
 )

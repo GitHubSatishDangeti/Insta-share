@@ -1,4 +1,5 @@
 import {Component} from 'react'
+import {Link} from 'react-router-dom'
 import Cookies from 'js-cookie'
 import {BsHeart} from 'react-icons/bs'
 import {FcLike} from 'react-icons/fc'
@@ -35,8 +36,10 @@ class UserPosts extends Component {
   render() {
     const {postDetails} = this.props
     const {
+      postId,
       profilePic,
       userName,
+      userId,
       imageUrl,
       likesCount,
       caption,
@@ -48,13 +51,18 @@ class UserPosts extends Component {
     return (
       <li>
         <div className="post-header">
-          <img
-            className="header-img"
-            src={profilePic}
-            alt="post author profile"
-          />
-          <h6>{userName}</h6>
+          <Link to={`/users/${userId}`}>
+            <img
+              id={postId}
+              className="header-img"
+              src={profilePic}
+              alt="post author profile"
+            />
+          </Link>
+
+          <h6 htmlFor={postId}>{userName}</h6>
         </div>
+
         <img src={imageUrl} alt="post" width="100%" height="500px" />
         <div className="post-bottom-section">
           <ul className="unordered-list-icons">
