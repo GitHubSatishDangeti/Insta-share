@@ -1,9 +1,11 @@
 import {withRouter, Link} from 'react-router-dom'
+import Cookies from 'js-cookie'
 import {FaSearch} from 'react-icons/fa'
 import './index.css'
 
 const Header = props => {
   const onLogout = () => {
+    Cookies.remove('jwt_token')
     const {history} = props
     history.replace('/login')
   }

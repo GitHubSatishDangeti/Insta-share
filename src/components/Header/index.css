@@ -9,6 +9,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  background-color: #ffffff;
 }
 .nav-list {
   margin-right: 15px;

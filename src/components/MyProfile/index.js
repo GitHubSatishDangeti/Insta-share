@@ -12,7 +12,7 @@ const apiProfileStatus = {
 }
 
 class MyProfile extends Component {
-  state = {profileStatus: apiProfileStatus.initial}
+  state = {profileStatus: apiProfileStatus.initial, profileData: ''}
 
   componentDidMount() {
     this.getProfile()
@@ -36,38 +36,108 @@ class MyProfile extends Component {
     if (response.ok === true) {
       const data = await response.json()
       console.log(data)
-
-      this.setState({profileStatus: apiProfileStatus.success})
+      const formattedProfileData = {
+        id: data.profile.id,
+        userId: data.profile.user_id,
+        username: data.profile.user_name,
+        profilePic: data.profile.profile_pic,
+        followersCount: data.profile.followers_count,
+        followingCount: data.profile.following_count,
+        userBio: data.profile.user_bio,
+        posts: data.profile.posts.map(i => ({
+          postId: i.id,
+          postImage: i.image,
+        })),
+        postsCount: data.profile.posts_count,
+        stories: data.profile.stories.map(k => ({
+          storyId: k.id,
+          storyImage: k.image,
+        })),
+      }
+      console.log(formattedProfileData)
+      this.setState({
+        profileStatus: apiProfileStatus.success,
+        profileData: formattedProfileData,
+      })
+    } else {
+      this.setState({profileStatus: apiProfileStatus.failure})
     }
   }
 
-  // renderProfileview=()=>
-  // (
-  //      <div>
-  //         <div>
-  //           <img src={} alt="" />
-  //           <div>
-  //             <h1>{}</h1>
-  //             <ul>
-  //               <li>{}</li>
-  //               <li>{}</li>
-  //               <li>{}</li>
-  //             </ul>
-  //             <p>{}</p>
-  //             <p>{}</p>
-  //           </div>
-  //         </div>
-  //         <ul>{}</ul>
-  //         <hr />
-  //         <div>
-  //           <div>
-  //             <img src={} alt="" />
-  //             <h4>Posts</h4>
-  //           </div>
-  //           <ul>{}</ul>
-  //         </div>
-  //       </div>
-  // )
+  renderProfileview = () => {
+    const {profileData} = this.state
+    const {
+      userId,
+      username,
+      profilePic,
+      followersCount,
+      followingCount,
+      userBio,
+      posts,
+      postsCount,
+      stories,
+    } = profileData
+    return (
+      <div className="bg">
+        <div className="bg-inner">
+          <div className="profile-details-section">
+            <img
+              src={profilePic}
+              alt="my profile"
+              width="180px"
+              height="180px"
+            />
+            <div className="profile-details">
+              <h1 className="username">{username}</h1>
+              <ul className="count-list">
+                <li>
+                  <b>{postsCount}</b> posts
+                </li>
+                <li>
+                  <b>{followersCount}</b> followers
+                </li>
+                <li>
+                  <b>{followingCount}</b> following
+                </li>
+              </ul>
+              <b>{userId}</b>
+              <p>{userBio}</p>
+            </div>
+          </div>
+          <ul className="profile-story-list">
+            {stories.map(each => (
+              <li className="story-list-item" key={each.storyId}>
+                <img
+                  src={each.storyImage}
+                  alt="my story"
+                  width="86px"
+                  className="story-image"
+                />
+              </li>
+            ))}
+          </ul>
+          <hr />
+          <div>
+            <div className="posts-section-header">
+              <img
+                src="https://res.cloudinary.com/dhcf8dqbi/image/upload/v1689313739/Vector_egqhi6.png"
+                alt="post-icon"
+                className="post-icon"
+              />
+              <h4>Posts</h4>
+            </div>
+            <ul className="post-images-list">
+              {posts.map(each => (
+                <li className="post-image-item" key={each.postId}>
+                  <img src={each.postImage} alt="my post" width="280px" />
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   onStoryRetry = () => {
     this.getProfile()
@@ -96,7 +166,7 @@ class MyProfile extends Component {
     const {profileStatus} = this.state
     switch (profileStatus) {
       case apiProfileStatus.success:
-        return this.renderPostsView()
+        return this.renderProfileview()
       case apiProfileStatus.failure:
         return this.renderProfileFailureView()
       case apiProfileStatus.loading:
@@ -111,7 +181,7 @@ class MyProfile extends Component {
     return (
       <div>
         <Header />
-        {this.renderProfileView()}
+        {this.renderProfile()}
       </div>
     )
   }
