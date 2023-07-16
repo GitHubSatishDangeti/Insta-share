@@ -4,8 +4,9 @@ import {BiCamera} from 'react-icons/bi'
 import Cookies from 'js-cookie'
 import Loader from 'react-loader-spinner'
 import Header from '../Header'
-
+import SearchContext from '../../SearchContext/SearchContext'
 import './index.css'
+import SearchResult from '../SearchResults'
 
 const apiUserStatus = {
   initial: 'INITIAL',
@@ -92,26 +93,26 @@ class UserProfile extends Component {
 
     const isEmpty = posts.length === 0
     return (
-      <div className="bg">
-        <div className="bg-inner">
-          <div className="profile-details-section">
+      <div className="bg-user">
+        <div className="bg-inner-user">
+          <div className="profile-details-section-user">
             <img
               src={profilePic}
               alt="user profile"
               width="180px"
               height="180px"
-              className="user-pic"
+              className="user-pic-user"
             />
-            <div className="profile-details">
-              <h1 className="username">{username}</h1>
-              <ul className="count-list">
-                <li className="count-item">
+            <div className="profile-details-user">
+              <h1 className="username-user">{username}</h1>
+              <ul className="count-list-user">
+                <li className="count-item-user">
                   <b>{postsCount}</b> posts
                 </li>
-                <li className="count-item">
+                <li className="count-item-user">
                   <b>{followersCount}</b> followers
                 </li>
-                <li className="count-item">
+                <li className="count-item-user">
                   <b>{followingCount}</b> following
                 </li>
               </ul>
@@ -119,33 +120,33 @@ class UserProfile extends Component {
               <p>{userBio}</p>
             </div>
           </div>
-          <ul className="profile-story-list">
+          <ul className="profile-story-list-user">
             {stories.map(each => (
-              <li className="story-list-item" key={each.storyId}>
+              <li className="story-list-item-user" key={each.storyId}>
                 <img
                   src={each.storyImage}
                   alt="user story"
                   width="86px"
-                  className="story-image"
+                  className="story-image-user"
                 />
               </li>
             ))}
           </ul>
           <hr />
           <div>
-            <div className="posts-section-header">
-              <BsGrid3X3 className="post-icon" />
+            <div className="posts-section-header-user">
+              <BsGrid3X3 className="post-icon-user" />
               <h4>Posts</h4>
             </div>
             {isEmpty ? (
-              <div className="no-post-section">
+              <div className="no-post-section-user">
                 <BiCamera size={50} />
-                <h1 className="no-post">No Posts</h1>
+                <h1 className="no-post-user">No Posts</h1>
               </div>
             ) : (
-              <ul className="post-images-list">
+              <ul className="post-images-list-user">
                 {posts.map(each => (
-                  <li className="post-image-item" key={each.postId}>
+                  <li className="post-image-item-user" key={each.postId}>
                     <img src={each.postImage} alt="user post" width="280px" />
                   </li>
                 ))}
@@ -193,10 +194,18 @@ class UserProfile extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        {this.renderUser()}
-      </div>
+      <SearchContext.Consumer>
+        {value => {
+          const {showSearchResult} = value
+
+          return (
+            <div>
+              <Header />
+              {showSearchResult ? <SearchResult /> : this.renderUser()}
+            </div>
+          )
+        }}
+      </SearchContext.Consumer>
     )
   }
 }

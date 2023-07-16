@@ -5,6 +5,8 @@ import './index.css'
 import Header from '../Header'
 import ReactSlider from '../ReactSlider'
 import UserPosts from '../UserPosts'
+import SearchResult from '../SearchResults'
+import SearchContext from '../../SearchContext/SearchContext'
 
 const apiPostsStatus = {
   initial: 'INITIAL',
@@ -26,7 +28,6 @@ class Home extends Component {
     storyStatus: apiStoriesStatus.initial,
     posts: [],
     userStories: [],
-    isLiked: false,
   }
 
   componentDidMount() {
@@ -200,11 +201,25 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="bg">
-        <Header />
-        {this.renderStories()}
-        {this.renderPost()}
-      </div>
+      <SearchContext.Consumer>
+        {value => {
+          const {showSearchResult} = value
+
+          return (
+            <div>
+              <Header />
+              {showSearchResult ? (
+                <SearchResult />
+              ) : (
+                <div className="bg">
+                  {this.renderStories()}
+                  {this.renderPost()}
+                </div>
+              )}
+            </div>
+          )
+        }}
+      </SearchContext.Consumer>
     )
   }
 }

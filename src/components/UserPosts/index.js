@@ -29,8 +29,6 @@ class UserPosts extends Component {
       `https://apis.ccbp.in/insta-share/posts/${postId}/like`,
       options,
     )
-    const data = await response.json()
-    //  console.log(data)
   }
 
   render() {

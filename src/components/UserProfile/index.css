@@ -1,7 +1,7 @@
-.bg {
+.bg-user {
   background-color: #fafafa;
 }
-.bg-inner {
+.bg-inner-user {
   margin-left: 200px;
   margin-right: 200px;
   padding: 0px;
@@ -33,15 +33,15 @@
   padding-top: 10%;
   margin-bottom: 7%;
 }
-.profile-details-section {
+.profile-details-section-user {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
-.username {
+.username-user {
   font-weight: 400;
 }
-.count-list {
+.count-list-user {
   list-style-type: none;
   padding: 0px;
   display: flex;
@@ -49,13 +49,13 @@
   justify-content: flex-start;
   align-items: center;
 }
-.count-item {
+.count-item-user {
   margin-right: 10px;
 }
-.profile-details {
+.profile-details-user {
   padding-left: 55px;
 }
-.profile-story-list {
+.profile-story-list-user {
   padding: 0px;
   list-style-type: none;
   display: flex;
@@ -63,22 +63,22 @@
   justify-content: flex-start;
   align-items: center;
 }
-.story-image {
+.story-image-user {
   border-radius: 50%;
 }
-.story-list-item {
+.story-list-item-user {
   margin: 15px;
 }
-.posts-section-header {
+.posts-section-header-user {
   display: flex;
   flex-direction: row;
 
   align-items: center;
 }
-.post-icon {
+.post-icon-user {
   margin-right: 20px;
 }
-.post-images-list {
+.post-images-list-user {
   list-style-type: none;
   display: flex;
   flex-direction: row;
@@ -87,16 +87,16 @@
   margin: 0px;
   padding-bottom: 50px;
 }
-.post-image-item {
+.post-image-item-user {
   margin: 7px;
 }
-.user-pic {
+.user-pic-user {
   border-radius: 50%;
 }
-.no-post {
+.no-post-user {
   font-weight: 400;
 }
-.no-post-section {
+.no-post-section-user {
   display: flex;
   flex-direction: column;
   justify-content: center;

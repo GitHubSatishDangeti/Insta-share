@@ -3,6 +3,8 @@ import Loader from 'react-loader-spinner'
 import Cookies from 'js-cookie'
 import Header from '../Header'
 import './index.css'
+import SearchResult from '../SearchResults'
+import SearchContext from '../../SearchContext/SearchContext'
 
 const apiProfileStatus = {
   initial: 'INITIAL',
@@ -179,10 +181,18 @@ class MyProfile extends Component {
 
   render() {
     return (
-      <div>
-        <Header />
-        {this.renderProfile()}
-      </div>
+      <SearchContext.Consumer>
+        {value => {
+          const {showSearchResult} = value
+
+          return (
+            <div>
+              <Header />
+              {showSearchResult ? <SearchResult /> : this.renderProfile()}
+            </div>
+          )
+        }}
+      </SearchContext.Consumer>
     )
   }
 }

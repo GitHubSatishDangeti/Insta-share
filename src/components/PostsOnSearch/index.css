@@ -1,0 +1,11 @@
+.bg-onSearch {
+  background-color: #fafafa;
+  padding: 0px;
+  margin: 0px;
+  border-style: none;
+}
+.search-result {
+  border-style: none;
+  padding: 0px;
+  margin-top: 10px;
+}
